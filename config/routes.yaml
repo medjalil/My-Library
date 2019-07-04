@@ -1,0 +1,8 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+#task:
+#   path: /task/new
+#   controller: App\Controller\TaskController::new
+

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Book{% endblock %}
+
+{% block body %}
+    <h1>Book : {{ book.title }}</h1>
+
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <th>Code</th>
+            <td>{{ book.code }}</td>
+        </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ book.title }}</td>
+            </tr>
+            <tr>
+                <th>Author</th>
+                <td>{{ book.author }}</td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>{{ book.category }}</td>
+            </tr>
+            <tr>
+                <th>Abstract</th>
+                <td>{{ book.abstract }}</td>
+            </tr>
+            <tr>
+                <th>Added date</th>
+                <td>{{ book.createdAt ? book.createdAt|date('d-m-Y') : '' }}</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+
+    {{ include('book/_delete_form.html.twig') }}
+    <a href="{{ path('book_edit', {'id': book.id}) }}" class="btn btn-primary float-right" style="margin-right: 10px;"><i class="fas fa-edit"></i> Edit</a>
+    <a href="{{ path('book_index') }}" class="btn btn-dark "><i class="fas fa-undo"></i> back to list</a>
+{% endblock %}
