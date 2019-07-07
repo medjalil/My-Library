@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -55,10 +57,17 @@ class Book
      */
     private $category;
 
+    /**
+     *
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="books")
+     * @ORM\JoinTable(name="users_books")
+     */
+    private $users;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-//      $this->code = 6000;
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -136,6 +145,39 @@ class Book
         $this->category = $category;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addBook($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            $user->removeBook($this);
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 
 

@@ -37,6 +37,16 @@
 
 
 
+{% if app.user in book.users %}
+        <a href="" class="btn float-right" aria-disabled="true"><i class="fas fa-star"></i> Bookmarked</a>
+{% else %}
+        <a href="{{ path('add_bookmark', {'id': book.id}) }}" class="btn btn-success float-right"><i class="far fa-star"></i> Bookmark</a>
+{% endif %}
+
+
+
+
+
     {{ include('book/_delete_form.html.twig') }}
     <a href="{{ path('book_edit', {'id': book.id}) }}" class="btn btn-primary float-right" style="margin-right: 10px;"><i class="fas fa-edit"></i> Edit</a>
     <a href="{{ path('book_index') }}" class="btn btn-dark "><i class="fas fa-undo"></i> back to list</a>

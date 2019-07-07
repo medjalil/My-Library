@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bookmarks{% endblock %}
+
+{% block body %}
+    <h1>Bookmarks</h1>
+
+    {% if  app.user.books is not  empty %}
+
+       {% for book in app.user.books %}
+                  <li>{{ book.title }}</li>
+       {% endfor %}
+
+   {% else %}
+
+        Bookmarks is empty
+
+    {% endif %}
+
+
+{% endblock %}
