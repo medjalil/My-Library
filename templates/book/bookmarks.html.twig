@@ -3,19 +3,22 @@
 {% block title %}Bookmarks{% endblock %}
 
 {% block body %}
+<div class="container mt-4">
     <h1>Bookmarks</h1>
 
     {% if  app.user.books is not  empty %}
-
+    <div class="row">
        {% for book in app.user.books %}
-                  <li>{{ book.title }}</li>
+        <div class="col-md-4">
+           {% include 'book/_book.html.twig' %}
+        </div>
        {% endfor %}
-
+    </div>
    {% else %}
 
         Bookmarks is empty
 
     {% endif %}
-
+</div>
 
 {% endblock %}

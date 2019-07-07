@@ -4,12 +4,16 @@ namespace App\Controller;
 
 
 use App\Entity\Book;
+use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\BookRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends AbstractController
 {
+
     /**
      * @Route("/", name="home")
      */
@@ -53,6 +57,27 @@ class HomeController extends AbstractController
             'books' => $books,
         ]);
     }
+    /**
+     * @Route("/list", name="book_list", methods={"GET"})
+     */
+    public function list(PaginatorInterface $paginator, Request $request, BookRepository $bookRepository ): Response
+    {
+
+
+
+        $books = $paginator->paginate(
+            $bookRepository->findAll(),
+            $request->query->getInt('page', 1),
+            12
+        );
+        return $this->render('book/list.html.twig', [
+            'current_menu' => 'books',
+            'books'   => $books,
+
+        ]);
+    }
+
+
 
 
 

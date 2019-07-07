@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Books{% endblock %}
+
+{% block body %}
+
+     <div class="container mt-4">
+         <a href="{{ path('book_new') }}" class="float-right btn btn btn-success">Add new book</a>
+         <h1>Books List </h1>
+
+
+        <div class="row">
+            {% for book in books %}
+                <div class="col-md-4">
+                    {% include 'book/_book.html.twig' %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="pagination">
+            {{ knp_pagination_render(books) }}
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}
