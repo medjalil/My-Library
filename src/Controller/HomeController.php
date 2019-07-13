@@ -45,6 +45,24 @@ class HomeController extends AbstractController
         ]);
     }
     /**
+     * @Route("/bookmark-del/{id}", name="remove_bookmark")
+     */
+    public function removeBookmark($id, BookRepository $bookRepository)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $book = $bookRepository->find($id);
+        $user = $this->getUser();
+        $book->removeUser($user);
+        $entityManager->flush();
+        $this->get('session')->getFlashBag()->add(
+            'notice', array(
+            'alert' => 'success',
+            'title' => '',
+            'message' => 'Fav Added.'
+        ));
+        return $this->redirectToRoute('bookmarks');
+    }
+    /**
      * @Route("/bookmarks", name="bookmarks")
      */
     public function bookmarks(BookRepository $bookRepository)

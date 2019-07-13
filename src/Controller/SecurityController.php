@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Form\BookType;
 use App\Form\ChangePasswordType;
+use App\Form\RegistrationType;
+use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -74,6 +77,30 @@ class SecurityController extends AbstractController
             'form' => $form->createView(),
         ));
     }
+    /**
+     * @Route("/register", name="registration")
+     */
+    public function register(Request $request)
+    {
+        $user= new User();
+        $form = $this->createForm(RegistrationType::class, $user);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $this->get('session')->getFlashBag()->add(
+                'notice', array(
+                'alert' => 'success',
+                'title' => '',
+                'message' => 'User Added.'
+            ));
+        }
+       return $this->render('security\registration.html.twig', [
+           'user' => $user,
+           'form' => $form->createView(),
+       ]);
+    }
 
 }

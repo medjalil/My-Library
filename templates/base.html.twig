@@ -5,7 +5,7 @@
         <title>{% block title %}Benguerdene Library{% endblock %}</title>
         {% block stylesheets %}
             <!-- CSS Bootstrap V4 -->
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
             <!-- Fontawesome V5 -->
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
             <!-- CSS Datatable V1 -->
@@ -47,7 +47,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('home') }}">Home </a>
                 </li>
-                {% if is_granted('ROLE_USER') %}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('book_index') }}">Books</a>
                 </li>

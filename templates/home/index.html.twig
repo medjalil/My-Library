@@ -4,4 +4,9 @@
 
 {% block body %}
 <h1>Home Page</h1>
+
+
+    {% if is_granted('ROLE_USER') %}
+        <a href="" class="btn btn-outline-danger">Delete</a>
+    {% endif %}
 {% endblock %}

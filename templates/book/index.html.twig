@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>Books List ({{ books|length }})</h1>
-    <a href="{{ path('book_new') }}" class="float-right btn btn btn-success">Add new book</a>
+    {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('book_new') }}" class="float-right btn btn btn-success">Add new book</a> {% endif %}
     <br><br>
 {#    {% trans into 'fr_FR' %}Hello{% endtrans %}#}
     <table class="table table-striped" id="datatable">
@@ -15,7 +15,7 @@
                 <th>Author</th>
                  <th>Category</th>
                 <th>Added date</th>
-                <th></th>
+                {% if is_granted('ROLE_ADMIN') %}   <th></th> {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -26,11 +26,11 @@
                 <td>{{ book.author|upper }}</td>
                 <td>{{ book.category.name }}</td>
                 <td>{{ book.createdAt ? book.createdAt|date('d-m-Y') : '' }}</td>
-
+                {% if is_granted('ROLE_ADMIN') %}
                 <td>
-                 {{ include('book/_delete_form.html.twig') }}
                     <a href="{{ path('book_edit', {'id': book.id}) }}" ><i class="fas fa-edit"></i></a>
                 </td>
+                {% endif %}
             </tr>
         {% else %}
             <tr>
